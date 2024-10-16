@@ -1,0 +1,12 @@
+#searchContainer {
+  display: flex;
+  justify-content: space-between;
+}
+
+#result,
+#chapters {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid black;
+  margin: 5px;
+}
