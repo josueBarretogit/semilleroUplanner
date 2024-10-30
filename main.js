@@ -13,7 +13,7 @@ let params = {
 async function searchMangas() {
 
   const result = document.getElementById("result");
-  result.innerHTML = "Buscando mangas"
+  result.innerHTML = loader();
 
   const searchTerm = document.getElementById("buscador").value;
 
@@ -47,7 +47,7 @@ function renderMangasFound(response) {
 
 async function goToManga(id) {
   const chaptersDiv = document.getElementById("chapters");
-  chaptersDiv.innerHTML = "Buscando capitulos"
+  chaptersDiv.innerHTML = loader();
 
   try {
 
@@ -56,18 +56,17 @@ async function goToManga(id) {
 
     console.log(asJson)
 
-    renderChaptersOfMangas(asJson)
+    renderMangaInfo(asJson)
 
   } catch (error) {
-
     console.error(error)
   }
 }
 
-function renderChaptersOfMangas(manga) {
+function renderMangaInfo(manga) {
 
   if (Array.isArray(manga.data)) {
-    let result = ``;
+    let result = renderMangaCover(manga);
     for (const chapter of manga.data) {
       result += renderChapter(chapter)
     }
@@ -78,10 +77,20 @@ function renderChaptersOfMangas(manga) {
   }
 }
 
+/**
+ * @param {{ id : string }} chapter 
+ * */
 function renderChapter(chapter) {
   return `<p id="${chapter.id}">${formatChapterTitle(chapter)}
             <a href='${formatMangadexChapterUrl(chapter.id)}'>mangadex link</a>
           </p>`
+}
+
+/**
+ * @param {string} coverName 
+ * */
+function renderMangaCover(coverName) {
+  return `<img src="${API_BASE_URL}/cover/${coverName}">`
 }
 
 function formatChapterTitle(chapter) {
@@ -91,3 +100,16 @@ function formatChapterTitle(chapter) {
 function formatMangadexChapterUrl(id) {
   return `https://mangadex.org/chapter/${id}`
 }
+
+function loader() {
+  return `
+<div class="loader">
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><radialGradient id="a5" cx=".66" fx=".66" cy=".3125" fy=".3125" gradientTransform="scale(1.5)"><stop offset="0" stop-color="#FF156D"></stop><stop offset=".3" stop-color="#FF156D" stop-opacity=".9"></stop><stop offset=".6" stop-color="#FF156D" stop-opacity=".6"></stop><stop offset=".8" stop-color="#FF156D" stop-opacity=".3"></stop><stop offset="1" stop-color="#FF156D" stop-opacity="0"></stop></radialGradient><circle transform-origin="center" fill="none" stroke="url(#a5)" stroke-width="15" stroke-linecap="round" stroke-dasharray="200 1000" stroke-dashoffset="0" cx="100" cy="100" r="70"><animateTransform type="rotate" attributeName="transform" calcMode="spline" dur="2" values="360;0" keyTimes="0;1" keySplines="0 0 1 1" repeatCount="indefinite"></animateTransform></circle><circle transform-origin="center" fill="none" opacity=".2" stroke="#FF156D" stroke-width="15" stroke-linecap="round" cx="100" cy="100" r="70"></circle></svg>
+
+</div>
+
+    `
+}
+
+
