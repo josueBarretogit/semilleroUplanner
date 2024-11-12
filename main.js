@@ -1,4 +1,3 @@
-
 const API_BASE_URL = "http://localhost:3000"
 
 let params = {
@@ -24,6 +23,7 @@ async function searchMangas() {
 
     console.log(asJson)
     renderMangasFound(asJson)
+    mostrarDialogo()
   } catch (error) {
     console.error(error)
   }
@@ -112,4 +112,39 @@ function loader() {
     `
 }
 
+// css window width
+function mostrarDialogo() {
+  let dialog = document.getElementById("dialog")
+
+  dialog.style.color = "red"
+  dialog.style.display = "block"
+
+  setTimeout(() => {
+    dialog.style.color = "black"
+    dialog.style.display = "none"
+  }, Duration.fromSec(2))
+}
+
+
+function fromSec(duration) {
+  return duration * 1000
+}
+
+class Duration {
+  constructor(duration) {
+    this.duration = duration
+  }
+
+  static fromSec(sec) {
+    return sec * 1000
+  }
+
+  static fromMillis(millis) {
+    return millis
+  }
+
+  static fromMinutes(minute) {
+    return Duration.fromSec(minute * 60)
+  }
+}
 

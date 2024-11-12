@@ -15,3 +15,17 @@
   width: 100px;
   height: 100px;
 }
+
+.dialog {
+  color: red;
+  width: calc(100% - 5px);
+  height: 480;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-color: black;
+  border-style: solid;
+  display: none;
+  position: absolute;
+
+  top: 0;
+  left: 0;
+}

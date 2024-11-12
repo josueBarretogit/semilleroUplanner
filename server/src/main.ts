@@ -45,7 +45,6 @@ app.get("/cover/title/:title", async (req: Request, res: Response) => {
 app.get("/manga/id/:id", async (req: Request, res: Response) => {
 
   try {
-
     let response = await fetch(`${API_BASE_URL}/manga/${req.params.id}/feed?limit=${ITEMS_PER_PAGE_CHAPTERS}&offset=0&translatedLanguage[]=en&includes[]=scanlation_group&includeExternalUrl=0&contentRating[]=safe&contentRating[]=suggestive`)
 
     let asJson = await response.json()
